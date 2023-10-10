@@ -100,3 +100,37 @@ function clearTable() {
 //#endregion
 
 displayTable(CatalogoJuegosList);
+
+function initButtonsHandler() {
+
+  document.getElementById('filter-form').addEventListener('submit', event => {
+    event.preventDefault();
+    applyFilters();
+  });
+
+}
+
+
+
+function applyFilters() {
+  const filterText = document.getElementById('text').value.toLowerCase();;
+  const filterRating = parseFloat(document.getElementById('rating').value);
+  const filterMinPrice = parseFloat(document.getElementById('price-min').value);
+  const filterMaxPrice = parseFloat(document.getElementById('price-max').value);
+
+  const filteredGames = filteredGames(realEstateList, filterText, filterRating, filterMinPrice, filterMaxPrice);
+
+  displayTable(filteredGames);
+}
+
+
+
+function filteredGames(  text, rating, minPrice, maxPrice) {
+
+  return games.filter( games =>
+      (!rating || games.rating === rating) &&
+      (!minPrice || games.price >= minPrice) &&
+      (!maxPrice || games.price <= maxPrice) &&
+      (!text     || games.name.toLowerCase().includes(text) || games.description.toLowerCase().includes(text))
+    );
+}
