@@ -19,7 +19,6 @@ Ejercicio-5/              # Carpeta principal del proyecto
 │   │    ├── css/         # Carpeta para archivos CSS compilados
 │   │    └── img/  		  # Carpeta para images estaticas
 │	│		  ├──catalogo_IMG 
-│	│		  ├──nuevas ventas_IMG
 │	│		  └──ventas_IMG
 │   │
 │   │
@@ -35,10 +34,6 @@ Ejercicio-5/              # Carpeta principal del proyecto
 │   │    └── styles.css   # Estilos CSS específicos de ventas
 │   │
 │   │
-│   ├── nuevas ventas/    # Recursos relacionados con la API (Tmp).
-│   │    ├── index.html   # Página HTML de ventas
-│   │    ├── script.js    # JavaScript específico de ventas
-│   │    └── styles.css   # Estilos CSS específicos de ventas
 │	│
 │	│
 │   └─── index.html       # Archivo HTML principal con home
