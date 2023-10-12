@@ -108,29 +108,39 @@ function initButtonsHandler() {
     applyFilters();
   });
 
+  document.getElementById('reset-filters').addEventListener('click', () => {
+  document.querySelectorAll('input.filter-field').forEach(input => input.value = '');
+    applyFilters();
+  });
+
 }
 
 
-
+// Funcion que gestiona la aplicacion del filtro a los datos y su despliegue.
 function applyFilters() {
-  const filterText = document.getElementById('text').value.toLowerCase();;
+  const filterText = document.getElementById('text').value.toLowerCase();
   const filterRating = parseFloat(document.getElementById('rating').value);
   const filterMinPrice = parseFloat(document.getElementById('price-min').value);
   const filterMaxPrice = parseFloat(document.getElementById('price-max').value);
 
-  const filteredGames = filteredGames(realEstateList, filterText, filterRating, filterMinPrice, filterMaxPrice);
+  const filteredGames = filterGames(CatalogoJuegosList, filterText, filterRating, filterMinPrice, filterMaxPrice);
 
   displayTable(filteredGames);
 }
 
 
+// Funcion con la logica para filtrar las casas.
+function filterGames(games, text, rating, minPrice, maxPrice) {
 
-function filteredGames(  text, rating, minPrice, maxPrice) {
-
-  return games.filter( games =>
-      (!rating || games.rating === rating) &&
-      (!minPrice || games.price >= minPrice) &&
-      (!maxPrice || games.price <= maxPrice) &&
-      (!text     || games.name.toLowerCase().includes(text) || games.description.toLowerCase().includes(text))
+  return games.filter( game =>
+      (!rating || game.rating === rating) &&
+      (!minPrice || game.price >= minPrice) &&
+      (!maxPrice || game.price <= maxPrice) &&
+      (!text     || game.title.toLowerCase().includes(text) || game.description.toLowerCase().includes(text))
     );
 }
+
+
+displayTable(CatalogoJuegosList);
+
+initButtonsHandler();
