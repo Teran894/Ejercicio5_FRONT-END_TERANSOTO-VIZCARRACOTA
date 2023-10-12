@@ -62,14 +62,11 @@ h2 {
 }
 
 img {
-  size: 0.75rem;
   align-items: center;
   margin-bottom: 20px;
-  height: auto;
-  width: 250;
+  height: 250;
+  width: 450;
 }
-
-
 
 /* #region GENERAL */
 .center {
@@ -111,7 +108,7 @@ img {
 header {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   background-color: var(--color-primario);
   box-shadow: 0 6px 8px rgba(118, 49, 158, 0.884);
@@ -121,6 +118,7 @@ header {
   max-height: 70px;
   min-height: 70px;
   height: 70px;
+  z-index: 1;
 }
 
 header nav ul {
@@ -149,6 +147,19 @@ header nav a {
   color: var(--color-white);
   font-weight: bold;
 }
+
+#logo {
+    height: 55px;
+    width: auto;
+    display: flex;
+    margin: 10px;
+}
+
+#logo > img{
+    width: auto;
+    padding: 5px;
+} 
+
 
 /* #endregion */
 
@@ -275,5 +286,77 @@ button#reset-filters {
 button#reset-filters:hover {
   background-color: #e2e9f1;
 }
+
+/* #endregion */
+
+/* #region footer */
+
+footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background: hsl(287, 67%, 39%);
+  color:black;
+  text-align: center;
+  padding: 6rem 3rem;
+}
+
+.contacto-container h3 { 
+  color: white;
+  font-size: 0.90rem;
+  margin-bottom: 0.90rem;
+  text-transform: uppercase;
+}
+
+
+.contacto-container h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+}
+
+#contacto-form {
+  width: 600px;
+  max-width: 100%;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+input,
+textarea {
+  margin-bottom: 1rem;
+  padding: 8px;
+  border: 1px solid #f5f7fa;
+  border-radius: 3px;
+}
+
+/* #endregion */
+
+/* #region REDES SOCIALES*/
+
+  .redes-sociales-container{
+      display: flex;
+      flex-direction: row;
+      gap: 1.5rem;
+      padding: 3rem 2rem;
+  }
+  
+  .fa-brands {
+      font-size: 2rem;
+      color: var(--color-primario);
+  }
+  
+  .fa-brands:hover{
+      color:hsl(210, 29%, 24%);
+  }
+  
+  .fa-brands:active{
+      color:hsl(210, 29%, 19%);
+  }
 
 /* #endregion */

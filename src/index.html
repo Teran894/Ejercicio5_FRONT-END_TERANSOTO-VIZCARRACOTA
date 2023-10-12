@@ -4,30 +4,75 @@
     <meta charset="UTF-8">
     <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon">
     <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="./assets/css/styles.css" />
-    <title>PlayWin</title>
+    <title>Home - PlayWin</title>
+    <script src="./js/main.js">
+    </script>
 </head>
 <body>
     
     <header>
+      <a id="logo">            
+        <img src="./assets/img/catalogo_IMG/Playwin-Logo.png" alt="Logo">
+      </a>
         <nav>
           <ul>
             <li><a href="./index.html">Inicio</a></li>
             <li><a href="./catalogo/index.html">Catalogo de juegos</a></li>
-            <li><a href="./ventas/index.html">Ventas</a></li>
+            <li><a href="#">Ventas</a></li>
           </ul>
         </nav>
       </header>
 
       <main>
 
-        <h1>PLAYWIN</h1>
-        <td></td>
-        <h2>Donde encontraras el catalogo de juegos vendidos en los ultimas dias.</h2>
+        <img src="./assets/img/Playwin-banner.png" id="banner">
 
-        <img src="./assets/img/catalogo_IMG/menuintro.webp">
+        <h2>Bienvenido a PLAYWIN, donde encontraras el catalogo de juegos vendidos en los ultimas dias.</h2>
+
+        <h2>Desde juegos nuevos hasta juegos de años pasados, tenemos cualquier juego disponible para su comfort.</h2>        
+
+        <img src="./assets/img/mantenimiento.png">
     
       </main>
+
+      <footer id="footer">
+
+        <div class="contacto-container">
+    
+          <h2>Contacto</h2>
+
+          <h3> Si desea conocer mas sobre este sitio, no dude en mandarnos un mensaje </h3>
+
+          <tr></tr>
+    
+          <form id="contacto-form">
+    
+            <input type="text" id="nombre" placeholder="Nombre" required>
+    
+            <input type="email" id="email" placeholder="Email" required>
+    
+            <textarea id="mensaje" placeholder="Mensaje" required></textarea>
+    
+            <button type="submit" class="button-action">Enviar</button>
+    
+          </form>
+    
+        </div>
+    
+        <div class="redes-sociales-container">
+    
+          <a href="https://www.instagram.com/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://www.facebook.com/" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+          <a href="https://twitter.com/home" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="https://web.whatsapp.com/" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+    
+        </div>
+        <p>PlayWin &copy;</p>
+    </footer>
 </body>
 </html>
