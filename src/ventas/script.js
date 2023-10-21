@@ -270,7 +270,7 @@ function resetSales() {
 
 
 function searchSales() {
-  const videoGame = document.getElementById('videogamefilter').value;
+  const videoGame = document.getElementById('real-estate-filter').value;
   const customerName = document.getElementById('customer-filter').value;
   const publisher = document.getElementById('publisher-filter').value;
   const saleDate = document.getElementById('date-filter').value;
@@ -365,7 +365,7 @@ function initDeleteSaleButtonHandler() {
 // Funcion que agrega los datos de los modelos de casas a la tabla.
 function displayRealEstateOptions(realEstates) {
 
-  const videogamefield = document.getElementById('videogamefield');
+  const videogamefield = document.getElementById('real-estate-filter');
   const videogameModal = document.getElementById('videogamefield');
 
   realEstates.forEach(videogamefield => {
