@@ -307,7 +307,6 @@ function getSalesData(videoGame, customerName, publisher, saleDate) {
     });
 }
 
-
 function createSale(sale) {
 
   fetchAPI(`${apiURL}/sales`, 'POST', sale)
