@@ -1,3 +1,11 @@
+//#region VARIABLES GLOBALES
+const imagePath = `../assets/img/catalogo_IMG/`;
+
+const apiURL = 'https://65334237d80bd20280f65941.mockapi.io/api';
+
+let CatalogoJuegosList = [];
+//#endregion
+
 //#region MODELO DE DATOS
 class Sale {
   //Definimos la clase Sale
@@ -36,7 +44,6 @@ class Sale {
       this.name = name;
       this.price = price;
     }
-  
   }
   
   function mapAPIToRealEstateDescriptors(data) {
@@ -53,7 +60,7 @@ class Sale {
 
 //#region 3. VENTAS (VIEW)
 
-function displaySalesView(sales) {
+function displayVentasView(sales) {
   clearTable();
   showLoadingMessage();
 
@@ -135,7 +142,7 @@ function hideMessage() {
 
 //#region 3. VENTAS (VIEW)
 
-function displaySalesView(sales) {
+function displayVentasView(sales) {
 
   clearTable();
 
@@ -328,10 +335,10 @@ function processSubmitSale() {
     null,
     customerName,
     customerPhone,
-    saleDate,
-    salesman,
-    realEstate,
+    videoGame,
     parseFloat(salePrice),
+    saleDate,
+    publisher,
     notes
   );
 
@@ -353,17 +360,14 @@ function initDeleteSaleButtonHandler() {
   });
 
 }
-
-
 // Mostrar y ocultar el modal para agregar una nueva venta.
-
 //#endregion
 
 
 //#region 6. CARGAR DATOS DE MODELOS PARA FORM (VIEW)
 
 // Funcion que agrega los datos de los modelos de casas a la tabla.
-function displayRealEstateOptions(realEstates) {
+function displayRealEstateOptions() {
 
   const videogamefield = document.getElementById('real-estate-filter');
   const videogameModal = document.getElementById('videogamefield');
@@ -394,7 +398,7 @@ function displayRealEstateOptions(realEstates) {
 
 function getRealEstateData() {
 
-  fetchAPI(`${apiURL}/real-estate`, 'GET')
+  fetchAPI(`${apiURL}/Ventas`, 'GET')
     .then(data => {
       const realEstatesList = mapAPIToRealEstateDescriptors(data);
       displayRealEstateOptions(realEstatesList);
@@ -409,8 +413,8 @@ function getSalesData(videoGame, customerName, publisher, saleDate) {
 
   fetchAPI(url, 'GET')
     .then(data => {
-      const salesList = mapAPIToSales(data);
-      displaySalesView(salesList);
+      const ventasList = mapAPIToSales(data);
+      displayVentasView(ventasList);
     });
 }
 

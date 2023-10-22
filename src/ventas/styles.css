@@ -228,10 +228,10 @@
   }
   
   .filter-section {
-    background-color: white;
+    background-color: var(--color-terciario);
     padding: 1.5rem;
     border: none;
-    border: 1px solid #d1dde8;
+    border: 1px solid bisque;
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
@@ -243,7 +243,7 @@
     display: flex;
     flex-direction: column;
     width: 50vw;
-    background-color: white;
+    background-color: var(--color-terciario);
     padding: 1rem;
     flex-wrap: wrap;
     gap: 1rem;
@@ -252,9 +252,7 @@
   .form-field {
     display: flex;
     flex-direction: column;
-  }
-  
-  
+  } 
   
   select {
     flex-grow: 1;
@@ -319,6 +317,16 @@
     gap: 1rem;
     align-items: center;
     border-radius: 3px;
+  }
+
+  .form-section {
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
+    background-color: var(--color-cuartiario);
+    padding: 1rem;
+    flex-wrap: wrap;
+    gap: 1rem;
   }
   
   /* #ENDREGION */
