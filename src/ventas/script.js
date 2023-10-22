@@ -1,7 +1,7 @@
 //#region VARIABLES GLOBALES
 const imagePath = `../assets/img/catalogo_IMG/`;
 
-const apiURL = 'https://65334237d80bd20280f65941.mockapi.io/api';
+const apiURL = 'https://65334237d80bd20280f65941.mockapi.io/';
 
 let CatalogoJuegosList = [];
 //#endregion
@@ -179,7 +179,6 @@ function searchSales() {
 
 //#endregion
 
-
 //#region 5. BOTONES PARA AGREGAR Y ELIMINAR VENTAS (VIEW)
 
 function initAddSaleButtonsHandler() {
@@ -255,7 +254,6 @@ function initDeleteSaleButtonHandler() {
 // Mostrar y ocultar el modal para agregar una nueva venta.
 //#endregion
 
-
 //#region 6. CARGAR DATOS DE MODELOS PARA FORM (VIEW)
 
 // Funcion que agrega los datos de los modelos de casas a la tabla.
@@ -284,7 +282,6 @@ function displayRealEstateOptions() {
 }
 
 //#endregion
-
 
 //#region 7. CONSUMO DE DATOS DESDE API
 

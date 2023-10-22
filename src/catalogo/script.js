@@ -2,7 +2,7 @@
 
 const imagePath = `../assets/img/catalogo_IMG/`;
 
-const apiURL = 'https://65334237d80bd20280f65941.mockapi.io/Playwin';
+const apiURL = 'https://65334237d80bd20280f65941.mockapi.io/';
 
 let CatalogoJuegosList = [];
 
@@ -10,7 +10,6 @@ let CatalogoJuegosList = [];
 
 //#region 2. Consultar datos
 class CatalogoJuegos {
-
   constructor(id, image, title, platform, description, price, rating) {
     this.id = id;
     this.image = image;
