@@ -1,23 +1,22 @@
-//#region VARIABLES GLOBALES
-const imagePath = `../assets/img/catalogo_IMG/`;
-
+//#region 1. VARIABLES GLOBALES
 const apiURL = 'https://65334237d80bd20280f65941.mockapi.io/';
 
 let CatalogoJuegosList = [];
 //#endregion
 
-//#region MODELO DE DATOS
+
+//#region 2. MODELO DE DATOS
+
+//Definimos la clase Sale
 class Sale {
-  //Definimos la clase Sale
-    constructor(id, customerName, customerPhone, saleDate, publisher, videoGame, salePrice, notes) {
-      this.id = id; // Identificador de la venta
+    constructor(salesId, customerName, customerPhone, videoGame, publisher, salesDate, salesPrice, notes) {
+      this.salesId = salesId; // Identificador de la venta
       this.customerName = customerName; // Nombre del cliente
       this.customerPhone = customerPhone; // Teléfono del cliente
-      this.saleDate = saleDate; // Fecha de la venta
-      this.publisher = publisher; // Empresa que distribuye el juego
       this.videoGame = videoGame; // Referencia al modelo del juego vendida
-      //this.realEstate = realEstate; // Referencia al modelo de la casa vendida
-      this.salePrice = salePrice; // Precio de la venta
+      this.publisher = publisher; // Empresa que distribuye el juego
+      this.salesDate = salesDate; // Fecha de la venta
+      this.salesPrice = salesPrice; // Precio de la venta
       this.notes = notes; // Información adicional sobre la venta
     }
   }
@@ -25,13 +24,13 @@ class Sale {
   function mapAPIToSales(data) {
     return data.map(item => {
       return new Sale(
-        item.id,
+        item.salesId,
         item.customerName,
         item.customerPhone,
-        new Date(item.saleDate),
-        item.publisher,
         item.videoGame,
-        item.salePrice,
+        item.publisher,
+        new Date(item.salesDate),
+        item.salesPrice,
         item.notes
       );
     });
@@ -39,71 +38,93 @@ class Sale {
   
 // Definimos la clase de RealEstate con los datos necesarios
   class RealEstateDescriptor {
-    constructor(id, name, price) {
-      this.id = id;
-      this.name = name;
-      this.price = price;
+
+    constructor(salesId, videoGame, salesPrice) {
+      this.salesId = salesId;
+      this.videoGame = videoGame;
+      this.salesPrice = salesPrice;
     }
+
   }
   
+
   function mapAPIToRealEstateDescriptors(data) {
     return data.map(item => {
       return new RealEstateDescriptor(
-        item.id,
-        item.name,
-        item.price
+        item.salesId,
+        item.videoGame,
+        item.salesPrice
       );
     });
   }
   
 //#endregion
 
+
 //#region 3. VENTAS (VIEW)
 
 function displayVentasView(sales) {
+
   clearTable();
+
   showLoadingMessage();
 
-  if (sales.length === 0) {
-    showNotFoundMessage();
-  } else {
-    hideMessage();
-    displaySalesTable(sales);
+    if (sales.length === 0) {
+
+      showNotFoundMessage();
+
+    } else {
+
+      hideMessage();
+
+      displaySalesTable(sales);
   }
+
 }
+
 
 function displayClearSalesView() {
   clearTable();
+
   showInitialMessage();
 }
 
+
 // Funcion que agrega los datos de los modelos de casas a la tabla.
 function displaySalesTable(sales) {
+
   const tablaBody = document.getElementById('data-table-body');
+  
   sales.forEach(sale => {
+    
     const row = document.createElement('tr');
+
     row.innerHTML = `
-      <td>${sale.id}</td>
+      <td>${sale.salesId}</td>
       <td>${sale.customerName}</td>
       <td>${sale.customerPhone}</td>
       <td>${sale.videoGame}</td>
       <td>${sale.publisher}</td>
-      <td>${formatDate(sale.saleDate)}</td>
-      <td class="text-right">${formatCurrency(sale.salePrice)}</td>
+      <td>${formatDate(sale.salesDate)}</td>
+      <td class="text-right">${sale.salesPrice}</td>
       <td>${sale.notes}</td>
       <td>
-        <button class="btn-delete" data-sale-id="${sale.id}">Eliminar</button>
+        <button class="btn-delete" data-sale-id="${sale.salesId}">Eliminar</button>
       </td>
     `;
+
     tablaBody.appendChild(row);
 
   });
+
   initDeleteSaleButtonHandler();
 }
+
 
 // Funcion que limpia la tabla
 function clearTable() {
   const tableBody = document.getElementById('data-table-body');
+  
   tableBody.innerHTML = '';
 }
 
@@ -111,7 +132,9 @@ function clearTable() {
 // Funcion que muestra mensaje de carga
 function showLoadingMessage() {
   const message = document.getElementById('message');
+
   message.innerHTML = 'Cargando...';
+
   message.style.display = 'block';
 }
 
@@ -119,7 +142,9 @@ function showLoadingMessage() {
 // Funcion que muestra mensaje de carga
 function showInitialMessage() {
   const message = document.getElementById('message');
+
   message.innerHTML = 'No se ha realizado una consulta de ventas.';
+  
   message.style.display = 'block';
 }
 
@@ -127,7 +152,9 @@ function showInitialMessage() {
 // Funcion que muestra mensaje de que no se encuentraron datos
 function showNotFoundMessage() {
   const message = document.getElementById('message');
-  message.innerHTML = 'No se encontraron casas con el filtro proporcionado.';
+  
+  message.innerHTML = 'No se encontraron juegos con el filtro proporcionado.';
+  
   message.style.display = 'block';
 }
 
@@ -135,9 +162,12 @@ function showNotFoundMessage() {
 // Funcion que oculta mensaje
 function hideMessage() {
   const message = document.getElementById('message');
+  
   message.style.display = 'none';
 }
+
 //#endregion
+
 
 //#region 4. FILTROS (VIEW)
 
@@ -156,7 +186,7 @@ function initFilterButtonsHandler() {
 function clearSales() {
   document.querySelector('select.filter-field').selectedIndex = 0;
   document.querySelectorAll('input.filter-field').forEach(input => input.value = '');
-
+  
   displayClearSalesView();
 }
 
@@ -169,15 +199,16 @@ function resetSales() {
 
 
 function searchSales() {
-  const videoGame = document.getElementById('real-estate-filter').value;
+  const videoGame = document.getElementById('videogame-filter').value;
   const customerName = document.getElementById('customer-filter').value;
   const publisher = document.getElementById('publisher-filter').value;
-  const saleDate = document.getElementById('date-filter').value;
-
-  getSalesData(videoGame, customerName, publisher, saleDate);
+  const salesDate = document.getElementById('date-filter').value;
+  
+  getSalesData(videoGame, customerName, publisher, salesDate);
 }
 
 //#endregion
+
 
 //#region 5. BOTONES PARA AGREGAR Y ELIMINAR VENTAS (VIEW)
 
@@ -216,10 +247,10 @@ function closeAddSaleModal() {
 function processSubmitSale() {
   const customerName = document.getElementById('customer-name-field').value;
   const customerPhone = document.getElementById('customer-phone-field').value;
-  const videoGame = document.getElementById('videogamefield').value;
-  const salePrice = document.getElementById('sale-price-field').value;
-  const saleDate = document.getElementById('sale-date-field').value;
+  const videoGame = document.getElementById('videogame-field').value;
   const publisher = document.getElementById('publisher-field').value;
+  const saleDate = document.getElementById('sale-date-field').value;
+  const salePrice = document.getElementById('sale-price-field').value;
   const notes = document.getElementById('notes-field').value;
 
   const saleToSave = new Sale(
@@ -227,9 +258,9 @@ function processSubmitSale() {
     customerName,
     customerPhone,
     videoGame,
-    parseFloat(salePrice),
-    saleDate,
     publisher,
+    saleDate,
+    parseFloat(salePrice),
     notes
   );
 
@@ -240,36 +271,40 @@ function processSubmitSale() {
 function initDeleteSaleButtonHandler() {
 
   document.querySelectorAll('.btn-delete').forEach(button => {
-
+    
     button.addEventListener('click', () => {
-
-      const saleId = button.getAttribute('data-sale-id'); // Obtenemos el ID de la venta
-      deleteSale(saleId); // Llamamos a la función para eleminar la venta
-
+      
+      const salesId = button.getAttribute('data-sale-id'); // Obtenemos el ID de la venta
+      deleteSale(salesId); // Llamamos a la función para eleminar la venta
+    
     });
-
+  
   });
 
 }
+
+
 // Mostrar y ocultar el modal para agregar una nueva venta.
+
 //#endregion
+
 
 //#region 6. CARGAR DATOS DE MODELOS PARA FORM (VIEW)
 
 // Funcion que agrega los datos de los modelos de casas a la tabla.
-function displayRealEstateOptions() {
+function displayRealEstateOptions(videoGames) {
 
-  const videogamefield = document.getElementById('real-estate-filter');
-  const videogameModal = document.getElementById('videogamefield');
+  const videogamefilter = document.getElementById('videogame-filter');
+  const videogameModal = document.getElementById('videogame-field');
 
-  realEstates.forEach(videogamefield => {
+  videoGames.forEach(videoGame => {
 
     const optionFilter = document.createElement('option');
 
     optionFilter.value = videoGame.name;
     optionFilter.text = `${videoGame.name} - ${formatCurrency(videoGame.price)}`;
 
-    realEstateFilter.appendChild(optionFilter);
+    videogamefilter.appendChild(optionFilter);
 
     const optionModal = document.createElement('option');
 
@@ -283,22 +318,23 @@ function displayRealEstateOptions() {
 
 //#endregion
 
+
 //#region 7. CONSUMO DE DATOS DESDE API
 
 function getRealEstateData() {
 
   fetchAPI(`${apiURL}/Ventas`, 'GET')
     .then(data => {
-      const realEstatesList = mapAPIToRealEstateDescriptors(data);
-      displayRealEstateOptions(realEstatesList);
+      const videoGamesList = mapAPIToRealEstateDescriptors(data);
+      displayRealEstateOptions(videoGamesList);
     });
 
 }
 
 
-function getSalesData(videoGame, customerName, publisher, saleDate) {
+function getSalesData(videoGame, customerName, publisher, salesDate) {
 
-  const url = buildGetSalesDataUrl(videoGame, customerName, publisher, saleDate);
+  const url = buildGetSalesDataUrl(videoGame, customerName, publisher, salesDate);
 
   fetchAPI(url, 'GET')
     .then(data => {
@@ -307,25 +343,26 @@ function getSalesData(videoGame, customerName, publisher, saleDate) {
     });
 }
 
+
 function createSale(sale) {
 
-  fetchAPI(`${apiURL}/sales`, 'POST', sale)
+  fetchAPI(`${apiURL}/Ventas`, 'POST', sale)
     .then(sale => {
       closeAddSaleModal();
       resetSales();
-      window.alert(`Venta ${sale.id} creada correctamente.`);
+      window.alert(`Venta ${sale.salesId} creada correctamente.`);
     });
 
 }
 
 
-function deleteSale(saleId) {
+function deleteSale(salesId) {
 
-  const confirm = window.confirm(`¿Estás seguro de que deseas eliminar la venta ${saleId}?`);
+  const confirm = window.confirm(`¿Estás seguro de que deseas eliminar la venta ${salesId}?`);
 
   if (confirm) {
 
-    fetchAPI(`${apiURL}/sales/${saleId}`, 'DELETE')
+    fetchAPI(`${apiURL}/Ventas/${salesId}`, 'DELETE')
       .then(() => {
         resetSales();
         window.alert("Venta eliminada.");
@@ -335,7 +372,7 @@ function deleteSale(saleId) {
 }
 
 // Funcion que genera la url para consultar ventas con filtros.
-function buildGetSalesDataUrl(videoGame, customerName, publisher, saleDate) {
+function buildGetSalesDataUrl(videoGame, customerName, publisher, salesDate) {
   // Tecnica de string dinamico: se aconseja cuando tenemos una cantidad limitada de parámetros y
   //    cierto control de los tipos de parametros (id, fechas).
   // const url = `${apiURL}/sales?realEstate=${realEstate}&customerName=${customerName}&salesman=${salesman}&saleDate=${saleDate}`;
@@ -344,7 +381,7 @@ function buildGetSalesDataUrl(videoGame, customerName, publisher, saleDate) {
   //    facilitan la gestión de múltiples parámetros y textos dinámicos al encargarse de
   //    la codificación y decodificación de caracteres especiales, lo que evita problemas
   //    comunes relacionados con espacios y caracteres no válidos.
-  const url = new URL(`${apiURL}/sales`);
+  const url = new URL(`${apiURL}/Ventas`);
 
   if (videoGame) {
     url.searchParams.append('videoGame', videoGame);
@@ -358,8 +395,8 @@ function buildGetSalesDataUrl(videoGame, customerName, publisher, saleDate) {
     url.searchParams.append('publisher', publisher);
   }
 
-  if (saleDate) {
-    url.searchParams.append('saleDate', saleDate);
+  if (salesDate) {
+    url.searchParams.append('salesDate', salesDate);
   }
 
   return url;
