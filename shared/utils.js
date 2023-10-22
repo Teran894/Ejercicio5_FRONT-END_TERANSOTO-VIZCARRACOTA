@@ -6,7 +6,7 @@ function formatCurrency(number) {
   
     return number.toLocaleString('en-US', {
       style: 'currency',
-      currency: 'MXN',
+      currency: 'USD',
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     });
